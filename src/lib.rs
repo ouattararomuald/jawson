@@ -1,14 +1,22 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+#![warn(missing_docs)]
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+//! A small JSON parser.
+//!
+//! The entry point is [`parse`], which turns a string slice into
+//! a [`JsonValue`] tree or a [`ParseError`].
+//!
+//! ```
+//! use jawson::parse;
+//! use jawson::JsonValue;
+//!
+//! assert_eq!(parse("null").unwrap(), JsonValue::Null);
+//! ```
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+mod errors;
+mod json_value;
+mod parser;
+mod tokens;
+
+pub use crate::errors::ParseError;
+pub use crate::json_value::JsonValue;
+pub use crate::parser::parse;

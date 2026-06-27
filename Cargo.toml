@@ -2,5 +2,9 @@
 name = "jawson"
 version = "0.1.0"
 edition = "2024"
+description = "A JSON parser built from scratch in Rust as a learning project."
+license = "MIT OR Apache-2.0"
+readme = "README.md"
 
 [dependencies]
+thiserror = "2.0.18"

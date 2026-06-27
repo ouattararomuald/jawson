@@ -1,0 +1,48 @@
+version: '3'
+
+tasks:
+  default:
+    desc: List available tasks
+    cmds:
+      - task --list
+    silent: true
+
+  fmt:
+    desc: Format the code
+    cmds:
+      - cargo fmt --all
+
+  fmt:check:
+    desc: Check formatting without modifying files
+    cmds:
+      - cargo fmt --all -- --check
+
+  clippy:
+    desc: Lint with clippy (deny warnings)
+    cmds:
+      - cargo clippy --all-targets -- -D warnings
+
+  clippy:fix:
+    desc: Apply clippy autofixes
+    cmds:
+      - cargo clippy --fix --allow-dirty --all-targets
+
+  test:
+    desc: Run unit and doc tests
+    cmds:
+      - cargo test --all
+
+  doc:
+    desc: Build docs (deny warnings)
+    env:
+      RUSTDOCFLAGS: -D warnings
+    cmds:
+      - cargo doc --no-deps
+
+  ci:
+    desc: Run the full CI suite locally (fmt check, clippy, test, doc)
+    cmds:
+      - task: fmt:check
+      - task: clippy
+      - task: test
+      - task: doc
